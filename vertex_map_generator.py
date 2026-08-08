@@ -1,3 +1,9 @@
+#Auxiliary class to decoder for simplicial_2b_embedder - the purpose of this class is to generate a list of all possible vertices that could arise after the second barycentric subdivision
+#(sorted into subgroups based on their index (:= the number of vertices arising after first barycentric subdivision that are in the sum equalling the vertex)
+#The creation of this list is optimal in the sense that (unlike previous iterations), no vertex or combination is calculated that does not need to be calculated (eg canonically duplicate vertices,
+#dummy combinations in the find_combinations function etc). However, this does not mean this code is the fastest possible - in fact, a non-memoised recursive implementation of generate_duplicate_vertices
+#is twice as fast as this algorithm for the case n=4 k=4. This memoised implementation does however seem to improve runtime for cases where n>k
+
 import numpy as np
 import time
 from copy import deepcopy
@@ -13,6 +19,7 @@ class vertex_map():
     def index(self, vertex: np.ndarray) -> int:
         return int(sum([max(x) for x in vertex.T])-1)
 
+    #this function is only relevant to the actual decoding, and does not participate in the map creation
     def find(self, vertex: np.ndarray) -> (int, int, int):
         index = self.index(vertex)
         full = self.count[index]
@@ -129,8 +136,6 @@ class vertex_map():
 if __name__ == "__main__":
     n=int(input("n: "))
     k=int(input("k: "))
-    #simplex_map = Simplex_Map(n,k)
-    #key1 = simplex_map.vertex_key
     start=time.time()
     vmap = vertex_map(n,k)
     end=time.time()
