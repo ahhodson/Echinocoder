@@ -17,7 +17,6 @@ class EmbExSim2(MultisetEmbedder):
         self.n = n
         self.k = k
         self.vertex_map = v_map if v_map else vertex_map(self.n, self.k)
-        print(self.vertex_map.count)
         
     def polar(self, mlc: MonoLinComb) -> np.ndarray:
         value = np.zeros(2*self.n*self.k-self.k)
@@ -77,7 +76,6 @@ class EmbExSim2(MultisetEmbedder):
         deltas, ejis = self.extract_data(data)
         raw_lin_comb = zip(deltas, ejis)
         lin_comb = self.fix_lin_comb(raw_lin_comb)
-        print(lin_comb)
         for i in range(len(lin_comb)):
             ans += lin_comb[i][0]*lin_comb[i][1]
         return array_to_lin_comb(ans)
@@ -96,8 +94,6 @@ class EmbExSim2(MultisetEmbedder):
             if lin_comb[i][0] != 0:
                 new_lin_comb.append(lin_comb[i])
                 indices.append(i)
-        print(new_lin_comb)
-        print(indices)
         for i in range(1, len(new_lin_comb)):
             benchmark = new_lin_comb[i-1][1]
             fixed_array = np.zeros(shape=(n, k))
@@ -124,10 +120,7 @@ class EmbExSim2(MultisetEmbedder):
             order = int(np.round((np.arctan2(data[2*i+1], data[2*i]))*full/2/np.pi))
             if order < 0:
                 order += full
-            print(f"index {i}: {order}")
             ejis.append(temp[order])
-        print(deltas)
-        print(ejis)
         return deltas, ejis
 
 
@@ -142,8 +135,6 @@ if __name__ == "__main__":
     print(f"{some_input}")
     print("leads to:")
     print(f"{output}")
-
-    print("Decoding then gives:")
 
     decoded_input = embedder.extract(output[0])
     print(f"Decoded: {decoded_input.to_numpy_array()}")
