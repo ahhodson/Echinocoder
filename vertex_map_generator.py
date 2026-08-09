@@ -16,6 +16,45 @@ class vertex_map():
         self.map = self.generate_vertex_map()
         self.count = [len(a) for a in self.map]
 
+    @classmethod
+    def write_map(cls, vm):
+        n = vm.n
+        k = vm.k
+        vlist = [v for index in vm.map for v in index]
+        file = open(f"vmap_n={n}_k={k}.txt", 'w')
+        file.write(f"{n} {k}")
+        file.write("\n")
+        file.write(' '.join(map(str, vm.count)))
+        file.write("\n")
+        for v in vlist:
+            file.write(' '.join(map(str,v.flatten())))
+            file.write("\n")
+
+
+    @classmethod
+    def read_map(cls, n, k):
+        vm = cls.__new__(cls)
+        file = open(f"vmap_n={n}_k={k}.txt", 'r')
+        dim = np.fromstring(file.readline(), dtype=int, sep=' ')
+        assert n == dim[0]
+        assert k == dim[1]
+        vm.n = n
+        vm.k = k
+        count = np.fromstring(file.readline(), dtype=int, sep=' ')
+        vm.count = [c for c in count]
+        vm.map = [[] for _ in range(vm.k*(vm.n-1))]
+        i = 0
+        j = 0 
+        while i < vm.k*(vm.n-1):
+            if j == vm.count[i]:
+                j = 0
+                i += 1
+                continue
+            array = np.fromstring(file.readline(), dtype=float, sep=' ')
+            vm.map[i].append(np.reshape(array, dim))
+            j += 1
+        return vm
+
     def index(self, vertex: np.ndarray) -> int:
         return int(sum([max(x) for x in vertex.T])-1)
 
