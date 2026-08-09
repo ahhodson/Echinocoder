@@ -134,7 +134,7 @@ if __name__ == "__main__":
     print("Embedding:")
     print(f"{some_input}")
     print("leads to:")
-    print(f"{output}")
+    print(f"{output[0]}")
 
     decoded_input = embedder.extract(output[0])
     print(f"Decoded: {decoded_input.to_numpy_array()}")
