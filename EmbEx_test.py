@@ -39,7 +39,7 @@ class UI():
         encoded, dim, meta = self.codec.embed(data)
         decoded = self.codec.extract(encoded).to_numpy_array()
 
-        match = (canon(encoded)-canon(decoded)<1e-8).all()
+        error = np.linalg.norm(canon(data)-canon(decoded))
 
         if output:
             print("Embedding:")
@@ -49,7 +49,7 @@ class UI():
             print("Decoded:")
             print(f"{decoded}")
 
-        return match, encoded, decoded
+        return error, encoded, decoded
         
     def specific_array(self):
         print("Input array in form [[a,b,c...],[..],[..]]:")
@@ -96,18 +96,28 @@ class UI():
 
         arrays = [((high_bound-low_bound)*rng.random(size=(self.n, self.k))+low_bound) for i in range(num)]
         results = [(data, self.run_codec(data)) for data in arrays]
-        filtered_results = [x for x in results if not x[1][0]]
 
-        print(f"{len(filtered_results)} mismatches in {num} runs.")
-        if input("Print mismatches? (y/n): ") == 'y':
-            print("Mismatches:")
-            print("_______________")
-            for result in filtered_results:
-                print("Data: ")
-                print(canon(result[0]))
-                print("Decoded: ")
-                print(canon(result[1][2]))
-                print("_______________")
+        errors = [res[1][0] for res in results]
+
+        max_i = errors.index(max(errors))
+        min_i = errors.index(min(errors))
+        avr_error = sum(errors)/num
+
+        print("Average error: ", avr_error)
+        print("Smallest error: ", errors[min_i])
+        print("Data :", results[min_i][0])
+        print("Decoded: ", results[min_i][1][2])
+        print("Largest error: ", errors[max_i])
+        print("Data :", results[max_i][0])
+        print("Decoded: ", results[max_i][1][2])
+        print("\n ===== \n")
+
+        if input("Print all error data? (y/n): ") == 'y':
+            for result in results:
+                print("Error: ", result[1][0], "\nData:\n", result[0], "\n")
+
+        print("\n ===== \n")
+        
 
 if __name__ == "__main__":
     n = int(input("n: "))
