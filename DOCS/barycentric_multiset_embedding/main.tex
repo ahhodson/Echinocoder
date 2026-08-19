@@ -107,7 +107,9 @@ by permuting columns,
    \qquad \sigma\in\Sn,
 \]
 and two matrices represent the same multiset exactly when one is obtained from
-the other by such a column permutation. We write $M\sim M'$ in that case.
+the other by such a column permutation. We write $M\sim M'$ in that case.  Nonetheless, the reader is warned that we will frequently abuse terminology slightly (e.g.~by referring to 
+``the multiset M'') in order to avoid having to use tortuous prose like 
+ ``the multiset whose contents can be represetad by the matrix $M$''.  
 
 \begin{example}\label{ex:samemultiset}
 With $n=5$, $k=2$,
@@ -123,17 +125,17 @@ with the first three columns cyclically shifted.  We may therefore write $M'\sim
 \subsection{What we want to build}
 
 We seek a map $f$ that sends a multiset $M$ (equivalently, its $\sim$-class) to a
-point $f(M)\in\R^N$ for some fixed $N$, with three properties.
-
+point $f(M)\in\R^N$ for some fixed $N$. We demand the map has the following three properties (\textbf{P1}, \textbf{P2} and \textbf{P3})
+and refer to any map having them as an \emph{embeddding}.
 \begin{enumerate}[label=\textbf{(P\arabic*)},leftmargin=*]
 \item \textbf{Permutation-invariance.} $f(M)=f(M')$ whenever $M\sim M'$. (The
       output depends only on the multiset, not on how we happened to list it.)
 \item \textbf{Injectivity.} $f(M)=f(M')$ \emph{only} when $M\sim M'$. (Distinct
-      multisets give distinct outputs --- no information is lost. A map that is
-      both (P1) and (P2) is called an \emph{embedding}.)
+      multisets give distinct outputs --- no information is lost.
 \item \textbf{Continuity.} $f$ is continuous: nudging the vectors a little moves
       $f(M)$ only a little.
 \end{enumerate}
+%
 
 \begin{remark}[why all three at once is awkward]\label{rmk:tension}
 Any one or two of these is easy. The difficulty is all three together.
@@ -178,7 +180,7 @@ The method has the following shape, and the rest of the document fills it in.
 \noindent
 Throughout, (P1) and (P3) will be easy to see as we go; the burden of proof is
 (P2), injectivity, and in particular \emph{why two subdivisions are needed and
-one is not}. That is the non-trivial content.
+one is insufficient}. That is the non-trivial content.
 
 % ════════════════════════════════════════════════════════════════════════════
 \section{The geometric idea: barycentric subdivision}
@@ -192,7 +194,7 @@ later is an echo of it.
 \subsection{The simplex and barycentric coordinates}
 
 Fix $n$ points $\bvec e_1,\dots,\bvec e_n$ in general position (no three on a
-line, etc.). Their \emph{simplex} is the solid region they span,
+line, etc.). Their \emph{simplex}, $\Delta$,  is the convex region with those points at its corners:
 \[
    \Delta \;=\; \Bigl\{\ \textstyle\sum_{i=1}^n \alpha_i\,\bvec e_i\ :\
         \alpha_i\ge 0,\ \textstyle\sum_i\alpha_i=1\ \Bigr\}.
