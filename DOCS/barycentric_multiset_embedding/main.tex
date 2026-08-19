@@ -240,24 +240,24 @@ the cells $C_\sigma$ tile $\Delta$ without overlap (Figure~\ref{fig:sd}).
   \coordinate (m13) at ($(e1)!0.5!(e3)$);
   \coordinate (m23) at ($(e2)!0.5!(e3)$);
   \coordinate (g)   at (barycentric cs:e1=1,e2=1,e3=1); % true centroid (2/3 down each median)
+  % one cell shaded: order (1,2,3): e1 -> m12 -> g
+  \fill[blue!14] (e2)--(m12)--(g)--cycle;
   % outer triangle
   \draw[thick] (e1)--(e2)--(e3)--cycle;
   % medians (the subdivision)
   \draw[blue!55!black] (e1)--(m23);
   \draw[blue!55!black] (e2)--(m13);
   \draw[blue!55!black] (e3)--(m12);
-  % one cell shaded: order (1,2,3): e1 -> m12 -> g
-  \fill[blue!14] (e1)--(m12)--(g)--cycle;
   % vertices and barycentres
   \foreach \p/\pos/\lab in {e1/below left/{$\bvec e_1$}, e2/below right/{$\bvec e_2$},
         e3/above/{$\bvec e_3$}}{\fill (\p) circle (1.3pt); \node[\pos] at (\p) {\lab};}
   \foreach \p/\pos/\lab in {m12/below/{$\bvec f_2$}, m13/left/{}, m23/right/{},
         g/above right/{$\bvec g=\bvec f_3$}}{\fill[blue!55!black] (\p) circle (1.1pt); \node[\pos,scale=0.85] at (\p) {\lab};}
-  \node[scale=0.8] at (1.13,0.30) {$C_{(1,2,3)}$}; % centre of the (corrected) 1/6 cell e1-f2-g
+  \node[scale=0.8] at (2.27,0.33) {$C_{(2,1,3)}$}; % want this lable to be seem to be in the middled of the e2-f2-g cell.
 \end{tikzpicture}
 \caption{Barycentric subdivision of a triangle ($n=3$): the three medians cut it
 into $3!=6$ cells, one per ordering of the vertices. The shaded cell
-$C_{(1,2,3)}$ has vertices $\bvec f_1=\bvec e_1$, $\bvec f_2=\tfrac12(\bvec
+$C_{(2,1,3)}$ has vertices $\bvec f_2=\bvec e_1$, $\bvec f_2=\tfrac12(\bvec
 e_1{+}\bvec e_2)$ and $\bvec f_3=\bvec g=\tfrac13(\bvec e_1{+}\bvec e_2{+}\bvec
 e_3)$. The centre $\bvec g$ is shared by all six cells.}
 \label{fig:sd}
