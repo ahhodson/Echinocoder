@@ -346,10 +346,7 @@ factor $1/r$; nothing has changed but the bookkeeping of scale.)
 \begin{example}\label{ex:numbers}
 For $x=(2,9,2,6)$, sorting gives $9\ge6\ge2\ge2$, so the gaps are
 $\delta_1=9{-}6=3$, $\delta_2=6{-}2=4$, $\delta_3=2{-}2=0$, $\delta_4=2$. The
-prefixes are: top-$1=\{$the $9\}$, top-$2=\{9,6\}$, top-$3=\{9,6,2\}$,
-top-$4=$ everything. The vanishing gap $\delta_3=0$ records the tie between the
-two $2$'s --- and note it makes the (ambiguous: \emph{which} $2$?) top-$3$
-prefix irrelevant, since it is multiplied by $0$.
+prefixes are as follows.  $\vec u_1=\vec e_2$ as the largest value in $x$, the 9,  was in location 2.  $\vec u_2=\vec u_1 + \vec e_4 = \vec e_2+\vec e_4$ as the next largest value in $x$, the 6, was in location 4. The value of $\vec u_3$ is ambiguous. It could be either $\vec u_2+\vec e_1$ or $\vec u_2 + \vec e_3$ since there is a tie for the third largest value in $x$ between two twos -- one in position 1 and one in position 3. Finally $\vec u_4=\vec e_1+\vec e_2+\vec e_3 +\vec e_4$,  unambiguously, as the largest four items are distributed across all four locations.  The apparent inability to define $\vec u_3$ is not a problem because the tie that lead to the ambiguity also leads to $\delta_3=0$, meaning that $\vec u_3$ is thereby `turned off' in the linear combination in \eqref{eq:numdecomp}. This feature, the fact that the prefix elements change there identity at (and only at) the very points where they become irrelevant, which are the same points at which a sort-order would change, is key to our retaining continuity in the embedding in more complex cases ($k>1$) considered later.
 \end{example}
 
 \subsection{Reading off the invariant, and why all three properties hold}
